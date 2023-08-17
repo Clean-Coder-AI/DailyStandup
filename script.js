@@ -28,15 +28,15 @@ randomizeButton.addEventListener("click", () => {
 
   // Shuffling animation
   items.forEach((item, index) => {
-    item.style.transition = "transform 2s ease-in-out";
-    item.style.transitionDelay = `${index * 0.2}s`; // Add delay to create a staggered effect
-    item.style.transform = `translateX(${index * 10}px)`;
+    item.style.transition = "transform 1s ease-in-out";
+    item.style.transitionDelay = `${index * 0.1}s`; // Add delay to create a staggered effect
+    item.style.transform = `translateY(${index * 100}px)`;
   });
 
   setTimeout(() => {
     shuffledItems.forEach((item, index) => {
-      item.style.transition = "transform 2s ease-in-out";
-      item.style.transitionDelay = `${index * 0.2}s`;
+      item.style.transition = "transform 1s ease-in-out";
+      item.style.transitionDelay = `${index * 0.1}s`;
       item.style.transform = "";
     });
 
