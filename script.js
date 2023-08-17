@@ -28,15 +28,15 @@ randomizeButton.addEventListener("click", () => {
 
   // Shuffling animation
   items.forEach((item, index) => {
-    item.style.transition = "transform 1s ease-in-out";
-    item.style.transitionDelay = `${index * 0.05}s`; 
-    item.style.transform = `translateX(${index * 180}px)`;
+    item.style.transition = "transform 2s ease-in-out";
+    item.style.transitionDelay = `${index * 0.2}s`; // Add delay to create a staggered effect
+    item.style.transform = `translateX(${index * 10}px)`;
   });
 
   setTimeout(() => {
     shuffledItems.forEach((item, index) => {
-      item.style.transition = "transform 1s ease-in-out";
-      item.style.transitionDelay = `${index * 0.05}s`;
+      item.style.transition = "transform 2s ease-in-out";
+      item.style.transitionDelay = `${index * 0.2}s`;
       item.style.transform = "";
     });
 
@@ -69,7 +69,7 @@ randomizeButton.addEventListener("click", () => {
     items.forEach((item, index) => {
       sortableList.appendChild(shuffledItems[index]);
     });
-  }, items.length * 100 + 2000); // Adjust the delay based on the number of items and animation duration
+  }, items.length * 100 + 1000); // Adjust the delay based on the number of items and animation duration
 });
 
 function shuffleArray(array) {
