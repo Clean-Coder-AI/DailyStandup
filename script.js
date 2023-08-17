@@ -69,7 +69,7 @@ randomizeButton.addEventListener("click", () => {
     items.forEach((item, index) => {
       sortableList.appendChild(shuffledItems[index]);
     });
-  }, items.length * 100 + 2000); // Adjust the delay based on the number of items and animation duration
+  }, items.length * 100 + 1000); // Adjust the delay based on the number of items and animation duration
 });
 
 function shuffleArray(array) {
