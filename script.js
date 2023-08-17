@@ -30,7 +30,7 @@ randomizeButton.addEventListener("click", () => {
   items.forEach((item, index) => {
     item.style.transition = "transform 1s ease-in-out";
     item.style.transitionDelay = `${index * 0.1}s`; // Add delay 
-    item.style.transform = `translateY(${index * 100}px)`;
+    item.style.transform = `translateY(${index * 50}px)`;
   });
 
   setTimeout(() => {
