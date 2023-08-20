@@ -24,8 +24,6 @@ sortableList.addEventListener("dragover", initSortableList);
 sortableList.addEventListener("dragenter", e => e.preventDefault());
 
 randomizeButton.addEventListener("click", () => {
-  // Clear the notes container
-  notesContainer.innerHTML = "";
   const shuffledItems = shuffleArray([...items]);
 
   // Shuffling animation
@@ -72,8 +70,8 @@ randomizeButton.addEventListener("click", () => {
     });
   }, items.length * 10+1000); // Adjust delay 
 
-  // const saveButton = document.getElementById("save-button");
-  // saveButton.style.display = "block";
+  const saveButton = document.getElementById("save-button");
+  saveButton.style.display = "block";
   
   saveButton.addEventListener("click", () => {
     saveNotesToFile();
