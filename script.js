@@ -24,12 +24,14 @@ sortableList.addEventListener("dragover", initSortableList);
 sortableList.addEventListener("dragenter", e => e.preventDefault());
 
 randomizeButton.addEventListener("click", () => {
+  // Clear the notes container
+  notesContainer.innerHTML = "";
   const shuffledItems = shuffleArray([...items]);
 
   // Shuffling animation
   items.forEach((item, index) => {
     item.style.transition = "transform 1s ease-in-out";
-    item.style.transitionDelay = `${index * 0.1}s`; // Add delay 
+    item.style.transitionDelay = `${index * 0.1}s`; // Add delay  
     item.style.transform = `translateY(${index * 100}px)`;
   });
 
@@ -46,6 +48,7 @@ randomizeButton.addEventListener("click", () => {
 
     shuffledItems.forEach((item, index) => {
       const personName = item.querySelector(".details span").textContent;
+      const personId = personName.toLowerCase().replace(" ", "_"); // Create a unique ID for each person
       const personNotesDiv = document.createElement("div");
       personNotesDiv.classList.add("person-notes");
 
@@ -53,24 +56,40 @@ randomizeButton.addEventListener("click", () => {
       personNameHeading.classList.add("person-name");
       personNameHeading.textContent = personName;
 
+      const personIdInput = document.createElement("input");
+      personIdInput.type = "hidden";
+      personIdInput.classList.add("person-id");
+      personIdInput.value = personId; // Store the person's ID
+
       const notesTextbox = document.createElement("textarea");
       notesTextbox.classList.add("notes-textbox");
       notesTextbox.placeholder = "Write notes here...";
 
       personNotesDiv.appendChild(personNameHeading);
       personNotesDiv.appendChild(notesTextbox);
-
+      personNotesDiv.appendChild(personIdInput);
       notesContainer.appendChild(personNotesDiv);
     });
   }, items.length * 10+1000); // Adjust delay 
 
-  // Update the order of items after animation...
+  // const saveButton = document.getElementById("save-button");
+  // saveButton.style.display = "block";
+  
+  saveButton.addEventListener("click", () => {
+    saveNotesToFile();
+});
+
+    // Update the order of items after animation...
   setTimeout(() => {
     items.forEach((item, index) => {
       sortableList.appendChild(shuffledItems[index]);
     });
   }, items.length*10+1000); // Adjust delay
 });
+
+
+
+
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -79,3 +98,18 @@ function shuffleArray(array) {
   }
   return array;
 }
+
+function saveNotesToFile() {
+  const personNotes = Array.from(document.querySelectorAll(".person-notes"));
+
+  const notesData = personNotes.map(personNote => {
+    const personId = personNote.querySelector(".person-id").value;
+    const notes = personNote.querySelector(".notes-textbox").value;
+    return `${personId}: ${notes}`;
+  }).join("\n");
+
+  const blob = new Blob([notesData], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.download = "notes.txt";
+  a.href = URL.createObjectURL(blob);
+  a.click();}
