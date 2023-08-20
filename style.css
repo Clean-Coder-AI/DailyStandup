@@ -1,29 +1,24 @@
-/* Import Google font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-* {
+/* Add your CSS styles here */
+body {
+  background-color: #595DB8;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-}
-
-body {
-  background: #595DB8;
 }
 
 .sortable-list {
   display: flex;
   align-items: center;
   overflow-x: auto;
-  padding: 20px;
-  background: #fff;
+  padding: 50px;
+  background-color: #d2d0d0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 7px;
   margin: 0 auto;
   width: 80%;
 }
 
-.sortable-list .item {
+.item {
   list-style: none;
   cursor: move;
   display: flex;
@@ -31,19 +26,25 @@ body {
   align-items: center;
   text-align: center;
   margin-right: 20px;
+  transition: transform 0.5s ease-in-out;
 }
 
 .item .details img {
-  height: 50px;
-  width: 50px;
+  height: 70px;
+  width: 70px;
   pointer-events: none;
-  margin-bottom: 5px;
+  margin-right: 10px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 30%;
 }
 
 .item .details span {
-  font-size: 1.13rem;
+  font-size: 1rem;
+}
+
+.item.dragging {
+  transform: scale(1.05);
+  opacity: 0.8;
 }
 
 .button-container {
@@ -63,18 +64,3 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
-
-.person-notes {
-  text-align: center;
-  flex-grow: 1;
-  margin: 0 10px;
-}
-
-.notes-textbox {
-  width: 100%;
-  height: 100px;
-  margin-top: 10px;
-  resize: vertical;
-}
-
-
