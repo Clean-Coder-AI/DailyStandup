@@ -62,20 +62,29 @@ document.addEventListener('DOMContentLoaded', function () {
     
         saveStateToLocalStorage(state); // Save the state to local storage
     
-        // displayState();
+        // Set up event listeners for note inputs to automatically update the state
+        const noteInputs = notesContainer.querySelectorAll('.note');
+        noteInputs.forEach((noteInput, index) => {
+            noteInput.addEventListener('input', function () {
+                state.notes[index] = noteInput.value; // Update the state with the input value
+                saveStateToLocalStorage(state); // Save the updated state
+            });
+        });
     });
     
     
     
-    saveNotesButton.addEventListener('click', function () {
-        const notes = Array.from(document.querySelectorAll('.note')).map(noteBox => noteBox.value);
     
-        // Update the state object with the actual user input notes
-        state.notes = notes;
     
-        // Save the state to local storage
-        saveStateToLocalStorage(state);
-    });
+    // saveNotesButton.addEventListener('click', function () {
+    //     const notes = Array.from(document.querySelectorAll('.note')).map(noteBox => noteBox.value);
+    
+    //     // Update the state object with the actual user input notes
+    //     state.notes = notes;
+    
+    //     // Save the state to local storage
+    //     saveStateToLocalStorage(state);
+    // });
              
     randomizeButton.addEventListener('click', function () {
         
