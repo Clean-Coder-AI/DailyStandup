@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const saveNotesButton = document.getElementById('saveNotesButton');
     const randomizeButton = document.getElementById('randomizeButton');
 
-    let noteInputListeners = [];
+    // let noteInputListeners = [];
 
     let state = {  // Entire state in this object
-        names: [], // Initialize this as an empty array
-        notes: "" // Initialize this as an empty string
+        names: [], 
+        notes: "" 
     };
 
     function saveStateToLocalStorage(state) {
