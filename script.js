@@ -111,8 +111,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             `).join('');
             notesContainer.innerHTML = noteContainers;
+    
+            // Add event listeners to note inputs to capture changes and update state
+            const noteInputs = notesContainer.querySelectorAll('.note');
+            noteInputs.forEach((noteInput, index) => {
+                noteInput.addEventListener('input', function () {
+                    state.notes[index] = noteInput.value; // Update the state with the input value
+                    saveStateToLocalStorage(state); // Save the updated state
+                });
+            });
         }
+        saveNotesButton.style.display = 'block';
+        randomizeButton.style.display = 'block';
     }
+    
     
     saveNotesButton.addEventListener('click', function () {
         const notes = Array.from(document.querySelectorAll('.note')).map(noteBox => noteBox.value);
