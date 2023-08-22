@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let state = {  // Entire state in this object
         names: [], 
-        notes: "" 
+        notes: []    
     };
 
     function saveStateToLocalStorage(state) {
@@ -43,27 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `).join('');
     
-        // // Clear the array and remove previous event listeners
-        // noteInputListeners.forEach(listener => {
-        //     listener.element.removeEventListener('input', listener.handler);
-        // });
-    
-        // noteInputListeners = [];
-    
-        // const noteInputs = notesContainer.querySelectorAll('.note');
-        // noteInputs.forEach((noteInput, index) => {
-        //     const handler = function () {
-        //         state.notes[index] = noteInput.value; // Update the state with the input value
-        //         saveStateToLocalStorage(state); // Save the updated state
-        //     };
-    
-        //     noteInput.addEventListener('input', handler);
-        //     noteInputListeners.push({ element: noteInput, handler });
-        // });
-    
-        // Shuffle names and corresponding note containers
-        // shuffleArrays(names);
-    
         const nameList = names.map(name => `<li class="name-box">${name}</li>`).join('');
         nameListContainer.innerHTML = `<ul class="horizontal-list">${nameList}</ul>`;
     
@@ -79,12 +58,14 @@ document.addEventListener('DOMContentLoaded', function () {
     
         // Update the state object with the current names and notes
         state.names = names;
-        state.notes = noteContainers;
+        state.notes = Array.from(document.querySelectorAll('.note')).map(noteBox => noteBox.value); // Store the notes in the state
     
         saveStateToLocalStorage(state); // Save the state to local storage
     
-        displayState();
+        // displayState();
     });
+    
+    
     
     saveNotesButton.addEventListener('click', function () {
         const notes = Array.from(document.querySelectorAll('.note')).map(noteBox => noteBox.value);
@@ -115,12 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function displayState() {
-        console.log(state);
-        console.log("Names property:", JSON.stringify(state.names));
-        console.log("Notes property:", JSON.stringify(state.notes));
         if (state.names) {
-            // console.log("Names property:", JSON.stringify(state.names));
-            // Restore the input field value
             nameInput.value = state.names.join(', ');
     
             const nameList = state.names.map(name => `<li class="name-box">${name}</li>`).join('');
@@ -128,24 +104,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     
         if (state.notes) {
-            // console.log("Notes property:", JSON.stringify(state.notes));
-            // Restore the note containers with saved notes
-            notesContainer.innerHTML = state.notes;
+            const noteContainers = state.names.map((name, index) => `
+                <div class="note-box">
+                    <h3>${name}</h3>
+                    <textarea class="note" placeholder="Enter notes for ${name}...">${state.notes[index]}</textarea>
+                </div>
+            `).join('');
+            notesContainer.innerHTML = noteContainers;
         }
     }
-
-
     
-
-
     saveNotesButton.addEventListener('click', function () {
         const notes = Array.from(document.querySelectorAll('.note')).map(noteBox => noteBox.value);
-
         const content = names.map((name, index) => `${name}: ${notes[index]}`).join('\n');
-
         const blob = new Blob([content], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
-
         const a = document.createElement('a');
         a.href = url;
         a.download = 'notes.txt';
